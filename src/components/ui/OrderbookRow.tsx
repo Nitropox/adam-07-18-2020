@@ -38,7 +38,7 @@ interface Props {
   color: keyof typeof colors;
 }
 
-export const OrderbookRow = ({
+const OrderbookRowComponent = ({
   price,
   size,
   total,
@@ -66,3 +66,5 @@ export const OrderbookRow = ({
     </RowWrapper>
   );
 };
+
+export const OrderbookRow = React.memo(OrderbookRowComponent);
