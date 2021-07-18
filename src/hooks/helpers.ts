@@ -34,7 +34,7 @@ export const groupOrdersByTickSize = (
   }
   const obj: OrdersObject = orders.reduce(
     (o: OrdersObject, [price, size]: Order): OrdersObject => {
-      const roundedPrice = roundToNumber(price, tickSize);
+      const roundedPrice = Number(roundToNumber(price, tickSize).toFixed(2));
       o[roundedPrice] = o[roundedPrice] ? o[roundedPrice] + size : size;
       return o;
     },
