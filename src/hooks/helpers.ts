@@ -1,5 +1,9 @@
 export const mergeAndSort = (state: Order[], update: Order[]): Order[] => {
-  const newArr: Order[] = update.slice();
+  if (!update) {
+    return state; //spam toggle feed button protection
+  }
+
+  const newArr: Order[] = update;
 
   state.forEach(([price, size]): void => {
     if (update.find((o): boolean => o[0] === price)) {
