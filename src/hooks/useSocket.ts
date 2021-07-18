@@ -63,8 +63,7 @@ export const useSocket = (
     }
 
     return (): void => socketUnsubscribe(productIDs);
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [productIDs, isFeedKilled]);
+  }, [productIDs, isFeedKilled, manageOrderBookState, flushOrders]);
 
   return {
     bids: bidsSnapshot ? mapBidsWithTotal(bidsSnapshot) : undefined,
