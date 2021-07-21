@@ -50,7 +50,7 @@ const OrderbookRowComponent = ({
       <Bar width={(total / max) * 100} color={color} />
       <Column center width="40%">
         <TextComponent monotype color={color}>
-          {price}
+          {parseFloat(price.toString()).toFixed(2)}
         </TextComponent>
       </Column>
       <Column center width="30%">

@@ -58,19 +58,22 @@ export const mapBidsWithTotal = (orders: Order[]): OrderBookRow[] => {
   return newArr;
 };
 
-//this one could be optimized
 export const mapAsksWithTotal = (orders: Order[]): OrderBookRow[] => {
-  const newArr: number[] = [];
-  orders.reverse().forEach(([_, size]: Order, index: number): void => {
-    index === 0 ? newArr.push(size) : newArr.push(size + newArr[index - 1]);
-  });
-  return orders
-    .map(
-      ([price, size]: Order, index: number): OrderBookRow => ({
-        price,
-        size,
-        total: newArr[index],
-      }),
-    )
-    .reverse();
+  const newArr: OrderBookRow[] = [];
+  let k = -1;
+  for (let i = orders.length - 1; i >= 0; i--) {
+    i === orders.length - 1
+      ? newArr.push({
+          price: orders[i][0],
+          size: orders[i][1],
+          total: orders[i][1],
+        })
+      : newArr.push({
+          price: orders[i][0],
+          size: orders[i][1],
+          total: orders[i][1] + newArr[k].total,
+        });
+    k++;
+  }
+  return newArr.reverse();
 };
