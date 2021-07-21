@@ -59,21 +59,22 @@ export const mapBidsWithTotal = (orders: Order[]): OrderBookRow[] => {
 };
 
 export const mapAsksWithTotal = (orders: Order[]): OrderBookRow[] => {
-  const newArr: OrderBookRow[] = [];
   let k = -1;
-  for (let i = orders.length - 1; i >= 0; i--) {
-    i === orders.length - 1
-      ? newArr.push({
-          price: orders[i][0],
-          size: orders[i][1],
-          total: orders[i][1],
-        })
-      : newArr.push({
-          price: orders[i][0],
-          size: orders[i][1],
-          total: orders[i][1] + newArr[k].total,
-        });
-    k++;
-  }
-  return newArr.reverse();
+  return orders
+    .reduceRight((arr: OrderBookRow[], [price, size]: Order, index, orders) => {
+      index === orders.length - 1
+        ? arr.push({
+            price,
+            size,
+            total: size,
+          })
+        : arr.push({
+            price,
+            size,
+            total: size + arr[k].total,
+          });
+      k++;
+      return arr;
+    }, [])
+    .reverse();
 };
