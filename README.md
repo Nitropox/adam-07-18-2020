@@ -1,6 +1,6 @@
 # Simple orderbook app powered by websockets
 
-        $ cd adam-07-18-2020
+        $ cd crypto-orderbook
         
         $ npm i
 
